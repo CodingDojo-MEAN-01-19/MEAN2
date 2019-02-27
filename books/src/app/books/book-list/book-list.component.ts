@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
 import { Book } from '../../models';
-import { BOOKS } from '../../data';
+
+import { BookService } from '../../services';
 
 @Component({
   selector: 'app-book-list',
@@ -9,12 +10,18 @@ import { BOOKS } from '../../data';
   styleUrls: ['./book-list.component.css'],
 })
 export class BookListComponent implements OnInit {
-  books: Book[] = BOOKS;
+  books: Book[] = [];
   selectedBook: Book;
 
-  constructor() {}
+  constructor(private readonly bookService: BookService) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    console.log(this.bookService);
+    this.bookService.getBooks().subscribe(books => {
+      console.log(this);
+      this.books = books;
+    });
+  }
 
   onSelect(book: Book) {
     console.log('selecting a book', book);
@@ -31,6 +38,22 @@ export class BookListComponent implements OnInit {
   onCreate(book: Book) {
     console.log('creating book', book);
 
-    this.books.push(book);
+    this.bookService.createBook(book).subscribe(newBook => {
+      this.books = [...this.books, newBook];
+    });
+  }
+
+  onDelete(book: Book) {
+    console.log('deleting book', book);
+
+    this.bookService.removeBook(book.id).subscribe(deletedBook => {
+      console.log(deletedBook);
+      this.books = this.books.filter(b => b.id !== deletedBook.id);
+    });
+  }
+
+  onClick(event: Event) {
+    event.stopPropagation();
+    console.log('clicking ');
   }
 }
