@@ -9,7 +9,7 @@ module.exports = {
       .then(books => response.json(books))
       .catch(error => response.status(Http.BadRequest).json(error));
   },
-  // creatae resource
+  // create resource
   create(request, response) {
     Book.create(request.body)
       .then(book => response.json(book))

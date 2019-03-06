@@ -8,14 +8,18 @@ import { BookNewComponent } from './books/book-new/book-new.component';
 import { BookListComponent } from './books/book-list/book-list.component';
 import { BookDetailComponent } from './books/book-detail/book-detail.component';
 
+import { AppRoutingModule } from './app-routing.module';
+import { NavComponent } from './nav/nav.component';
+
 @NgModule({
   declarations: [
     AppComponent,
     BookNewComponent,
     BookListComponent,
     BookDetailComponent,
+    NavComponent,
   ],
-  imports: [BrowserModule, FormsModule, HttpClientModule],
+  imports: [BrowserModule, FormsModule, HttpClientModule, AppRoutingModule],
   providers: [],
   bootstrap: [AppComponent],
 })
