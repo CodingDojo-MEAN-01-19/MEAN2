@@ -9,5 +9,8 @@
     <li routerLinkActive="active">
       <a routerLink="/books/new">Create a Book</a>
     </li>
+    <li *ngIf="isAuthed">
+      <button (click)="onClick()">Logout</button>
+    </li>
   </ul>
 </nav>

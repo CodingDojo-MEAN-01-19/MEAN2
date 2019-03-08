@@ -35,7 +35,14 @@ module.exports = {
         response.status(Http.UnprocessableEntity).json(errors);
       });
   },
-  logout(request, response) {},
+  logout(request, response) {
+    console.log('logging out');
+
+    request.session.destroy();
+    response.clearCookie('userID');
+    response.clearCookie('expiration');
+    response.json(Http.Ok);
+  },
 };
 
 function completeLogin(request, response, user) {
